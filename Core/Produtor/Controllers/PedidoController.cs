@@ -36,15 +36,27 @@ namespace Produtor.Controllers
                     autoDelete: true, // impede erros nas execuções posteriores
                     arguments: null);
 
-                string message = JsonSerializer
-                    .Serialize(new Pedido(1, new Usuario(1, "André", "andre@email.com")));
-                var body = Encoding.UTF8.GetBytes(message);
+                    // Número de pedidos desejados
+                    int numeroDePedidos = 5;
 
-                channel.BasicPublish(
-                    exchange: "",
-                    routingKey: fila,
-                    basicProperties: null,
-                    body: body);
+                    for (int i = 1; i <= numeroDePedidos; i++)
+                    {
+                        // Criar um pedido fictício para ilustração
+                        var pedido = new Pedido(i, new Usuario(i, $"Usuário{i}", $"usuario{i}@email.com"));
+
+                        // Serializar o pedido
+                        var message = JsonSerializer.Serialize(pedido);
+                        var body = Encoding.UTF8.GetBytes(message);
+
+                        // Publicar o pedido no RabbitMQ
+                        channel.BasicPublish(
+                            exchange: "",
+                            routingKey: fila,
+                            basicProperties: null,
+                            body: body);
+
+                        Console.WriteLine($"Pedido {i} publicado no RabbitMQ.");
+                    }
             }
 
             return Ok();

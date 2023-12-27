@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Core.Entidades
 {
@@ -17,7 +17,7 @@ namespace Core.Entidades
 
         public override string ToString()
         {
-            return $"Pedido Id {Id}, Usuário {Usuario.Nome}, Data de criação: {DataCriacao:dd/MM/yyyy HH:mm:ss}";
+            return $"Pedido Id {Id}, Usuário {Usuario.Nome}, Data de criação: {DataCriacao:dd/MM/yyyy HH:mm:ss.fff}";
         }
     }
 }
